@@ -2,7 +2,7 @@ A little **challenge problem #2** for the group members and readers:
 
 *Use the Unicode box drawing characters to display [the Dragon curve](https://en.wikipedia.org/wiki/Dragon_curve) or some other interesting curve, as shown in the screenshot (or similar).*
 
-Wikipedia has a table of the box drawing characters at <url: https://en.wikipedia.org/wiki/Box-drawing_character>. Additionally this problem’s [GitHub repository]() has a file “box_drawing_characters.inc” with the raw data that I used to define the systematic characters collection for my own exploration. If you’re unfamiliar with the box drawing characters, this is the complete list of the *systematic* ones:
+Wikipedia has a table of the box drawing characters at <url: https://en.wikipedia.org/wiki/Box-drawing_character>. Additionally this problem’s [GitHub repository](https://github.com/alf-p-steinbach/CPPE-challenge-002---dragon-curve) has a file “box_drawing_characters.inc” with the raw data that I used to define the systematic characters collection for my own exploration. If you’re unfamiliar with the box drawing characters, this is the complete list of the *systematic* ones:
 
   ╷ ╻ ╶ ┌ ┎ ╺ ┍ ┏ ╵ │ ╽ └ ├ ┟ ┕ ┝ ┢ ╹ ╿ ┃ ┖ ┞ ┠ ┗ ┡ ┣ ╴ ┐ ┒ ─ ┬ ┰ ╼ ┮ ┲ ┘ ┤ ┧ ┴ ┼ ╁ ┶ ┾ ╆ ┚ ┦ ┨ ┸ ╀ ╂ ┺ ╄ ╊ ╸ ┑ ┓ ╾ ┭ ┱ ━ ┯ ┳ ┙ ┥ ┪ ┵ ┽ ╅ ┷ ┿ ╈ ┛ ┩ ┫ ┹ ╃ ╉ ┻ ╇ ╋
 
