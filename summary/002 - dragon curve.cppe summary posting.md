@@ -14,7 +14,7 @@ Unlike e.g. Python C++ still lacks simple graphics functionality. Herb Sutter’
 
 ---
 
-In the sister group about C++ in practice Gilad Zuckerman posted [a C++ Dragon curve implementation using the folding algorithm](https://www.facebook.com/groups/cppInPracticeQuestions/posts/6188851397802465/). Since C++ lacks standard library graphics support he used the Windows API and the MFC library to create and present a BMP image. In addition to the neat folding algorithm this code showed how 4 Dragon curves can be fitted together to fill the internal space, i.e. the outside of a Dragon curve is also a Dragon curve (!).
+In the sister group about C++ in practice Gilad Zuckerman posted [a C++ Dragon curve implementation using the folding algorithm](https://www.facebook.com/groups/cppInPracticeQuestions/posts/6188851397802465/). Since C++ lacks standard library graphics support he used the Windows API and the MFC library to create and present a BMP image. In addition to the neat folding algorithm this code showed how 4 Dragon curves can be fitted together to fill the internal space, i.e. the outside of a Dragon curve is also nearly a Dragon curve (!).
 
 Also in the in the sister group A. S. Raghuvanshi has helpfully posted both [a Javascript Dragon curve implementation](https://www.facebook.com/groups/cppInPracticeQuestions/posts/6175938325760439/?comment_id=6176254425728829) using the/an L-system algorithm, and [an R language Dragon curve implementation](https://www.facebook.com/groups/cppInPracticeQuestions/posts/6175938325760439?comment_id=6176257815728490) that I don’t understand; I’m not sure if the R code was complete, but it appears to use the folding algorithm.
 
