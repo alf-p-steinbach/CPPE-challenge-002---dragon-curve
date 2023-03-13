@@ -1,33 +1,36 @@
 ﻿#pragma once    // Source encoding: UTF-8 with BOM (π is a lowercase Greek "pi").
 
-#include <tuple>
-#include <utility>
+#include "cpp_util-type-builders.hpp"       // in_, ref_
 
 namespace console::geometry {
-    using   std::tie,           // <tuple>
-            std::pair;          // <utility>
+    namespace cppu = cpp_util;
+    using   cppu::in_, cppu::ref_;
 
     struct Point                { int x; int y; };
     struct Distance             { int dx; int dy; };
     struct Relative_direction   { enum Enum: int { left, right }; };
 
-    inline auto operator+( in_<Point> point, in_<Distance> distance )
+    constexpr auto operator+( in_<Point> point, in_<Distance> distance )
         -> Point
     { return {point.x + distance.dx, point.y + distance.dy}; }
     
-    inline void operator+=( ref_<Point> point, in_<Distance> distance )
+    constexpr void operator+=( ref_<Point> point, in_<Distance> distance )
     {
         point = point + distance;
     }
     
-    inline auto operator-( in_<Point> a, in_<Point> b )
+    constexpr auto operator-( in_<Point> a, in_<Point> b )
         -> Distance
     { return {a.x - b.x, a.y - b.y}; }
 
-    inline void turn_right( ref_<Distance> d ) { tie( d.dx, d.dy ) = pair( -d.dy, d.dx ); }
-    inline void turn_left( ref_<Distance> d )  { tie( d.dx, d.dy ) = pair( d.dy, -d.dx ); }
+    constexpr auto rect_size( in_<Point> ul, in_<Point> dr )
+        -> Distance
+    { return dr + Distance{ 1, 1 } - ul; }
+
+    constexpr void turn_right( ref_<Distance> d ) { d = Distance{ -d.dy, d.dx }; }
+    constexpr void turn_left( ref_<Distance> d )  { d = Distance{ d.dy, -d.dx }; }
     
-    inline void turn( const Relative_direction::Enum dir, ref_<Distance> dist )
+    constexpr void turn( const Relative_direction::Enum dir, ref_<Distance> dist )
     {
         switch( dir ) {
             case Relative_direction::right:     turn_right( dist );  break;

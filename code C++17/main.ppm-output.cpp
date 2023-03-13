@@ -1,10 +1,13 @@
-#include "console-Line_canvas.hpp"
+#include "ppm-Canvas.hpp"
 #include "console-geometry.hpp"
 
 #include "cpp_util.hpp"
 #include "draw_dragon_curve.hpp"
 
+#include <functional>
 #include <iostream>
+#include <string_view>
+#include <utility>
 
 #include <assert.h>     // assert
 #include <stdlib.h>     // atoi
@@ -14,10 +17,10 @@ namespace app {
     namespace geometry = console::geometry;
 
     using   cppu::in_, cppu::const_, cppu::Span_;
-    using   console::Line_canvas;
-    using   std::function,              // <functional>
-            std::cout, std::endl,       // <iostream>
-            std::pair;                  // <utility>
+    using   std::function,                      // <functional>
+            std::cout, std::clog, std::endl,    // <iostream>
+            std::string_view,                   // <string_view>
+            std::pair;                          // <utility>
 
     template< class Drawing_func >
     auto bounding_box_of( in_<Drawing_func> draw )
@@ -38,19 +41,19 @@ namespace app {
 
     template< class Drawing_func >
     auto line_drawing_from( in_<Drawing_func> drawfunc )
-        -> Line_canvas
+        -> ppm::Canvas
     {
         namespace m = geometry;
         const auto scaled_drawing = [&drawfunc]( auto callback )
         {
-            drawfunc( [&callback]( in_<m::Point> pt ) { callback( m::Point{3*pt.x, pt.y} ); } );
+            drawfunc( [&callback]( in_<m::Point> pt ) { callback( m::Point{3*pt.x, 3*pt.y} ); } );
         };
 
         const auto [bbox_ul, bbox_dr]   = bounding_box_of( scaled_drawing );
         const m::Distance offset        = m::Point() - bbox_ul;
-        const m::Distance bbox_size     = m::rect_size( bbox_ul, bbox_dr );
+        const m::Distance bbox_size     = (bbox_dr + m::Distance{ 1, 1 }) - bbox_ul;
 
-        auto        canvas             = Line_canvas( bbox_size.dx, bbox_size.dy );
+        auto        canvas             = ppm::Canvas( bbox_size.dx, bbox_size.dy );
         m::Point    previous_canvas_pt;
         bool        has_previous_point      = false;
         scaled_drawing( [&]( in_<m::Point> pt )
@@ -82,17 +85,15 @@ namespace app {
 
     void run( in_<Span_<const_<const char*>>> args )
     {
-        auto& out = cout;
+        auto& log = clog;
 
         const int args0_value = (args.size() == 0? 0 : atoi( *args.p_first ));
         const int level = (args0_value > 0? args0_value : 9);
 
-        Line_canvas canvas = line_drawing_from( [level]( auto f ){ draw_dragon_curve( level, f ); } );
-        out << "Dragon curve level " << level << ","
+        const ppm::Canvas canvas = line_drawing_from( [level]( auto f ){ draw_dragon_curve( level, f ); } );
+        log << "Dragon curve level " << level << ","
             << " drawing size " << canvas.width() << "×" << canvas.height() << "." << endl;
-        for( int i = 0; i < canvas.n_text_lines(); ++i ) {
-            cout << canvas.text_line_at( i ) << endl;
-        }
+        canvas.as_ppm_to( [&]( in_<string_view> s ) { cout << s; } );  cout.flush();
     }
 }  // namespace app
 

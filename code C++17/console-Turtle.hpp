@@ -2,9 +2,12 @@
 // Was used in the original draw_dragon_curve function.
 // Removed for the challenge presentation, to make that presentation simple.
 
+#include "cpp_util-type-builders.hpp"       // in_
 #include "console-geometry.hpp"
 
 namespace console {
+    using   cpp_util::in_;
+
     class Turtle
     {
         geometry::Point     m_pos;

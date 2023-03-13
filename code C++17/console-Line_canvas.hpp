@@ -17,12 +17,12 @@ namespace console {
 
     public:
         Line_canvas( const int width, const int height ):
-            m_box_lines( width + 1, height + 1 )
+            m_box_lines( width, height )
         {}
         
-        auto width() const -> int           { return m_box_lines.width() - 1; }
-        auto height() const -> int          { return m_box_lines.height() - 1; }
-        auto n_text_lines() const -> int    { return height() + 1; }
+        auto width() const -> int           { return m_box_lines.width(); }
+        auto height() const -> int          { return m_box_lines.height(); }
+        auto n_text_lines() const -> int    { return height(); }
 
         void draw_horizontal_at(
             const int y, const int x1, const int x2,
@@ -60,7 +60,7 @@ namespace console {
             -> string
         {
             string result;
-            for( int x = 0; x <= width(); ++x ) {
+            for( int x = 0; x < width(); ++x ) {
                 result += m_box_lines( x, y ).sv();
             }
             return result;
